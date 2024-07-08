@@ -1,6 +1,6 @@
 class Attack:
     def __init__(self, attackers, attacked):
-        self._attackers = attackers
+        self._attackers = frozenset(attackers)
         self._attacked = attacked
 
     @property
@@ -10,3 +10,11 @@ class Attack:
     @property
     def attacked(self):
         return self._attacked
+
+    @property
+    def arguments(self):
+        """
+        :return: A frozenset of all attackers and attacked arguments
+        contained in this attack.
+        """
+        return self._attackers | frozenset((self._attacked, ))
