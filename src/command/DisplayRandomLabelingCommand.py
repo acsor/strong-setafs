@@ -1,16 +1,15 @@
 import argparse
 
-import networkx
 import matplotlib.pyplot as plt
-
-from src.SETAFLabeling import SETAFLabeling
-from src.SETAFReader import SETAFReader
-from src.command.Command import Command
+import networkx
 
 from src.SETAFGraph import SETAFGraph
+from src.SETAFLabeling import SETAFLabeling
+from src.SETAFReader import SETAFReader
+from src.command.BaseDisplayGraphCommand import BaseDisplayGraphCommand
 
 
-class DisplayRandomLabelingCommand(Command):
+class DisplayRandomLabelingCommand(BaseDisplayGraphCommand):
     NAME = "display-rl"
     DESCRIPTION = """
     Reads a SETAF from a CCL file and displays it along with a random
@@ -22,6 +21,8 @@ class DisplayRandomLabelingCommand(Command):
 
     @classmethod
     def set_up_parser(cls, parser):
+        parser = super().set_up_parser(parser)
+
         parser.add_argument(
             "input_file",
             type=argparse.FileType('r'),
@@ -35,14 +36,13 @@ class DisplayRandomLabelingCommand(Command):
             SETAFReader(self._args.input_file)()
         )
         labeling = SETAFLabeling.random_labeling(graph.setaf)
+        layout = self.LAYOUTS[
+            self._args.layout
+        ]
 
-        if networkx.is_planar(graph):
-            draw = networkx.draw_planar
-        else:
-            draw = networkx.draw_circular
-
-        draw(
+        networkx.draw(
             graph,
+            pos=layout(graph),
             with_labels=True,
             node_color=graph.node_colors(labeling),
             node_size=600,
