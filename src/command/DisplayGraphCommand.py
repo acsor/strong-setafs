@@ -26,32 +26,25 @@ class DisplayGraphCommand(Command):
             type=argparse.FileType('r'),
             help="Input file in CCL format to read the SETAF from"
         )
-        parser.add_argument(
-            "--output",
-            type=argparse.FileType('bw'),
-            help="Output file where to display the SETAF"
-        )
 
         return parser
 
     def __call__(self):
-        if self._args.output:
-            pass
+        graph = SETAFGraph(
+            SETAFReader(self._args.input_file)()
+        )
+
+        if networkx.is_planar(graph):
+            draw = networkx.draw_planar
         else:
-            graph = SETAFGraph(
-                SETAFReader(self._args.input_file)()
-            )
+            draw = networkx.draw_circular
 
-            if networkx.is_planar(graph):
-                draw = networkx.draw_planar
-            else:
-                draw = networkx.draw_circular
-
-            draw(
-                graph,
-                with_labels=True,
-                node_color="#ffffff",
-                node_size=600,
-                labels=graph.display_labels,
-            )
-            plt.show()
+        draw(
+            graph,
+            with_labels=True,
+            node_color="#A3A3A3",
+            node_size=600,
+            labels=graph.display_labels,
+            font_color="#FFFFFF",
+        )
+        plt.show()
