@@ -52,6 +52,6 @@ class DisplayGraphCommand(Command):
                 with_labels=True,
                 node_color="#ffffff",
                 node_size=600,
-                labels=graph.node_labels,
+                labels=graph.display_labels,
             )
             plt.show()
