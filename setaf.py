@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import argparse
 
-from src.parser.DisplayGraphCommand import DisplayGraphCommand
-from src.parser.wrap_command import wrap_command
+from src.command.DisplayGraphCommand import DisplayGraphCommand
+from src.command.wrap_command import wrap_command
 
 
 def _build_parser():

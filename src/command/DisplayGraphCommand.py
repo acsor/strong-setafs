@@ -4,7 +4,7 @@ import networkx
 import matplotlib.pyplot as plt
 
 from src.SETAFReader import SETAFReader
-from src.parser.Command import Command
+from src.command.Command import Command
 
 from src.SETAFGraph import SETAFGraph
 
