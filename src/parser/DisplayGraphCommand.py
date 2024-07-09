@@ -39,7 +39,7 @@ class DisplayGraphCommand(Command):
             pass
         else:
             graph = SETAFGraph(
-                SETAFReader()(self._args.input_file)
+                SETAFReader(self._args.input_file)()
             )
 
             if networkx.is_planar(graph):
