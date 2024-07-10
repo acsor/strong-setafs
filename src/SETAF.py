@@ -11,3 +11,13 @@ class SETAF:
         return frozenset(
             a.arguments for a in self._attacks
         )
+
+    def __eq__(self, other):
+        if type(other) is not SETAF:
+            return False
+
+        for (a1, a2) in zip(self.attacks, other.attacks):
+            if a1 != a2:
+                return False
+
+        return True

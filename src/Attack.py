@@ -18,3 +18,8 @@ class Attack:
         contained in this attack.
         """
         return self._attackers | frozenset((self._attacked, ))
+
+    def __eq__(self, other):
+        return type(other) is Attack and\
+            self.attackers == other.attackers and \
+            self.attacked == other.attacked
