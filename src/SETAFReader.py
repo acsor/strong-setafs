@@ -41,10 +41,13 @@ class SETAFReader:
         return arguments, attacks
 
     def _read_next_line(self):
+        raw_line = self._file.readline()
+
+        if not raw_line:
+            raise IOError("End of input reached prematurely")
+
         line = tuple(
-            map(
-                int, self._file.readline().split(" ")
-            )
+            map(int, raw_line.split(" "))
         )
         attacked = line[0]
         attackers = line[1:-1]
