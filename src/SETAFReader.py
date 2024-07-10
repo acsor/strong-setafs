@@ -14,7 +14,10 @@ class SETAFReader:
         self._arguments, self._attacks = self._read_first_line()
 
     def __call__(self):
-        return SETAF(self._call_aux())
+        try:
+            return SETAF(self._call_aux())
+        finally:
+            self._file.close()
 
     def _call_aux(self):
         while self._line_count <= self._attacks:
