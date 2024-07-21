@@ -4,6 +4,8 @@ import argparse
 from src.command.DisplayGraphCommand import DisplayGraphCommand
 from src.command.DisplayRandomLabelingCommand import \
     DisplayRandomLabelingCommand
+from src.command.DisplayStrongLabelingCommand import \
+    DisplayStrongLabelingCommand
 from src.command.utils import wrap_command
 
 
@@ -17,6 +19,7 @@ def _build_parser():
     commands = (
         DisplayGraphCommand,
         DisplayRandomLabelingCommand,
+        DisplayStrongLabelingCommand,
     )
 
     for c in commands:
