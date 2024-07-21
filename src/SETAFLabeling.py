@@ -1,5 +1,6 @@
 import enum
 import random
+from collections.abc import Iterable
 
 
 class Label(enum.Enum):
@@ -13,8 +14,20 @@ class SETAFLabeling:
         self._setaf = setaf
         self._labels = dict()
 
-    def __getitem__(self, key):
-        return self._labels[key]
+    def __str__(self):
+        return '\n'.join(
+            '%s %s' % (a, self[a]) for a in self._setaf.arguments
+        )
+
+    def __getitem__(self, keys):
+        if isinstance(keys, Iterable):
+            values = frozenset(
+                self._labels[k] for k in keys
+            )
+
+            return values if len(values) > 1 else tuple(values)[0]
+        else:
+            return self._labels[keys]
 
     def __setitem__(self, key, value):
         if value not in Label:
