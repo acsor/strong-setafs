@@ -16,13 +16,23 @@ class SETAFGraph(networkx.DiGraph):
             self._node_labels[a] = str(a)
 
         for a in setaf.attacks:
-            self.add_node(a)
-            self.add_edge(a, a.attacked)
-
-            self._node_labels[a] = ""
-            self._edge_labels[(a, a.attacked)] = "%s" % ", ".join(
-                map(str, a.attackers)
-            )
+            # Add an explicit node for an attack only if this attack
+            # contains more than one attacker.
+            if len(a.attackers) > 1:
+                self.add_node(a)
+                self._node_labels[a] = ""
+                self.add_edge(a, a.attacked)
+                self._edge_labels[(a, a.attacked)] = ", ".join(
+                    map(str, a.attackers)
+                )
+            # Otherwise, just add a vertex from the already existing
+            # attacker to the already existing attacked argument.
+            elif len(a.attackers) == 1:
+                self.add_edge(
+                    tuple(a.attackers)[0], a.attacked
+                )
+            else:
+                raise Exception("Invalid number of arguments")
 
     @property
     def setaf(self):
@@ -86,4 +96,3 @@ class SETAFGraph(networkx.DiGraph):
                 lambda n: 100 if type(n) is Attack else 600, self.nodes
             )
         )
-
