@@ -15,16 +15,17 @@ class SETAF:
             *(a.arguments for a in self._attacks)
         )
 
-    def strongly_admissible_labeling(self, target):
+    def strongly_admissible_labeling(self, target=None):
         """
         Implements a generalization of the strong labeling algorithm for
         ordinary AFs introduced by Caminada and Harikrishnan for SETAFs.
         :param target: Argument that is assumed to belong to the grounded
-        extension.
+        extension. If `None` (default) the complete strong labeling is
+        constructed.
         :return: A pair composed of an admissible labeling and a min-max
         numbering, or `None` if `target` is never hit by the labeling process.
         """
-        if target not in self.arguments:
+        if target and target not in self.arguments:
             raise ValueError(
                 "target argument is supposed to belong to the SETAF"
             )
@@ -49,7 +50,7 @@ class SETAF:
                 mm_labeling[attack] = 1
                 attacks.append(attack)
 
-        if labeling[target] == Label.IN:
+        if target and labeling[target] == Label.IN:
             return (labeling, mm_labeling)
 
         while attacks:
@@ -92,10 +93,10 @@ class SETAF:
                     )
                     attacks.append(undec_attack)
 
-            if labeling[target] == Label.IN:
+            if target and labeling[target] == Label.IN:
                 break
 
-        if labeling[target] != Label.IN:
+        if target and labeling[target] != Label.IN:
             return None
 
         return (labeling, mm_labeling)

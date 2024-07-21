@@ -17,7 +17,7 @@ class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
         parser = super().set_up_parser(parser)
 
         parser.add_argument(
-            "target", type=int,
+            "--target", type=int, default=None,
             help="Argument that is supposed to be in the grounded extension"
         )
 
