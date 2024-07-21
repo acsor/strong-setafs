@@ -1,3 +1,5 @@
+import argparse
+
 import networkx
 
 from src.command.Command import Command
@@ -19,6 +21,8 @@ class BaseDisplayGraphCommand(Command):
 
     @classmethod
     def set_up_parser(cls, parser):
+        parser = super().set_up_parser(parser)
+
         parser.add_argument(
             "--layout",
             choices=tuple(cls.LAYOUTS.keys()),
