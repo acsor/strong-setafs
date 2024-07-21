@@ -38,18 +38,35 @@ class BaseDisplayGraphCommand(Command):
 
         return parser
 
-    def _display_graph(self, graph, **options):
+    def _draw_graph(self, graph, **options):
         layout = self.LAYOUTS[
             self._args.layout
         ]
 
-        networkx.draw(
+        networkx.draw_networkx(
             graph,
             pos=layout(graph),
+            node_shape="o",
+            labels=graph.node_labels(),
             with_labels=True,
-            node_size=600,
-            labels=graph.display_labels,
-            font_color="#FFFFFF",
             **options
         )
+        networkx.draw_networkx_edge_labels(
+            graph,
+            pos=layout(graph),
+            edge_labels=graph.edge_labels(),
+            font_size=12,
+        )
+
+    def _draw_graph_edges(self, graph, **options):
+        layout = self.LAYOUTS[
+            self._args.layout
+        ]
+        networkx.draw_networkx_edges(
+            graph,
+            pos=layout(graph),
+            **options
+        )
+
+    def _show_graph(self):
         plt.show()

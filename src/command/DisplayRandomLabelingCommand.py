@@ -40,7 +40,7 @@ class DisplayRandomLabelingCommand(BaseDisplayGraphCommand):
             with_labels=True,
             node_color=graph.node_colors(labeling),
             node_size=600,
-            labels=graph.display_labels,
+            labels=graph.node_labels,
             font_color="#FFFFFF",
         )
         plt.show()

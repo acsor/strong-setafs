@@ -1,6 +1,3 @@
-import networkx
-from matplotlib import pyplot as plt
-
 from src.SETAFGraph import SETAFGraph
 from src.SETAFReader import SETAFReader
 from src.command.BaseDisplayGraphCommand import BaseDisplayGraphCommand
@@ -39,10 +36,21 @@ class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
             if self._args.verbose:
                 print(labeling)
 
-            self._display_graph(
+            self._draw_graph(
                 graph,
-                node_color=graph.node_colors(labeling)
+                font_color="#FFFFFF",
+                node_color=graph.node_colors(labeling),
+                # This refers to the color of the border of nodes, not to edges!
+                edgecolors=graph.node_edge_colors(labeling),
+                linewidths=2,
+                node_size=graph.node_sizes(),
+                edge_color=graph.edge_colors(labeling),
+                width=2,
             )
+            # self._draw_graph_edges(
+            #     graph,
+            # )
+            self._show_graph()
         else:
             print(
                 "Argument %d was not reached by the labeling process" %

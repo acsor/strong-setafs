@@ -17,6 +17,8 @@ class SETAF:
 
     def strongly_admissible_labeling(self, target):
         """
+        Implements a generalization of the strong labeling algorithm for
+        ordinary AFs introduced by Caminada and Harikrishnan for SETAFs.
         :param target: Argument that is assumed to belong to the grounded
         extension.
         :return: A pair composed of an admissible labeling and a min-max
@@ -105,7 +107,6 @@ class SETAF:
         return sum(
             1 for attack in self.attacks if attack.attacked == argument
         )
-
 
     def __eq__(self, other):
         if type(other) is not SETAF:
