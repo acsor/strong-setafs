@@ -1,8 +1,3 @@
-import argparse
-
-import matplotlib.pyplot as plt
-import networkx
-
 from src.SETAFGraph import SETAFGraph
 from src.SETAFReader import SETAFReader
 from src.command.BaseDisplayGraphCommand import BaseDisplayGraphCommand
@@ -27,17 +22,8 @@ class DisplayGraphCommand(BaseDisplayGraphCommand):
         graph = SETAFGraph(
             SETAFReader(self._args.input_file)()
         )
-        layout = self.LAYOUTS[
-            self._args.layout
-        ]
 
-        networkx.draw(
+        self._display_graph(
             graph,
-            pos=layout(graph),
-            with_labels=True,
-            node_color="#A3A3A3",
-            node_size=600,
-            labels=graph.display_labels,
-            font_color="#FFFFFF",
+            node_color="#A3A3A3"
         )
-        plt.show()

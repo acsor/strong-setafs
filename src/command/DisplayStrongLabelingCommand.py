@@ -32,7 +32,6 @@ class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
         labelings = setaf.strongly_admissible_labeling(
             self._args.target
         )
-        layout = self.LAYOUTS[self._args.layout]
 
         if labelings:
             labeling, mm_labeling = labelings
@@ -40,16 +39,10 @@ class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
             if self._args.verbose:
                 print(labeling)
 
-            networkx.draw(
+            self._display_graph(
                 graph,
-                pos=layout(graph),
-                with_labels=True,
-                node_color=graph.node_colors(labeling),
-                node_size=600,
-                labels=graph.display_labels,
-                font_color="#FFFFFF",
+                node_color=graph.node_colors(labeling)
             )
-            plt.show()
         else:
             print(
                 "Argument %d was not reached by the labeling process" %

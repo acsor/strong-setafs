@@ -1,6 +1,7 @@
 import argparse
 
 import networkx
+from matplotlib import pyplot as plt
 
 from src.command.Command import Command
 
@@ -36,3 +37,19 @@ class BaseDisplayGraphCommand(Command):
         )
 
         return parser
+
+    def _display_graph(self, graph, **options):
+        layout = self.LAYOUTS[
+            self._args.layout
+        ]
+
+        networkx.draw(
+            graph,
+            pos=layout(graph),
+            with_labels=True,
+            node_size=600,
+            labels=graph.display_labels,
+            font_color="#FFFFFF",
+            **options
+        )
+        plt.show()
