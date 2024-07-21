@@ -29,5 +29,10 @@ class BaseDisplayGraphCommand(Command):
             default="circular",
             help="Layout to display the graph vertices with"
         )
+        parser.add_argument(
+            "input_file",
+            type=argparse.FileType('r'),
+            help="Input file in CCL format to read the SETAF from"
+        )
 
         return parser

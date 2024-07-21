@@ -11,8 +11,7 @@ from src.command.BaseDisplayGraphCommand import BaseDisplayGraphCommand
 class DisplayGraphCommand(BaseDisplayGraphCommand):
     NAME = "display-graph"
     DESCRIPTION = """
-    Reads a SETAF from a CCL file and writes its graph
-    conversion to an output file.
+    Reads a SETAF from a CCL file and displays it on a window.
     """
 
     def __init__(self, args):
@@ -21,12 +20,6 @@ class DisplayGraphCommand(BaseDisplayGraphCommand):
     @classmethod
     def set_up_parser(cls, parser):
         parser = super().set_up_parser(parser)
-
-        parser.add_argument(
-            "input_file",
-            type=argparse.FileType('r'),
-            help="Input file in CCL format to read the SETAF from"
-        )
 
         return parser
 

@@ -23,12 +23,6 @@ class DisplayRandomLabelingCommand(BaseDisplayGraphCommand):
     def set_up_parser(cls, parser):
         parser = super().set_up_parser(parser)
 
-        parser.add_argument(
-            "input_file",
-            type=argparse.FileType('r'),
-            help="Input file in CCL format to read the SETAF from"
-        )
-
         return parser
 
     def __call__(self):
