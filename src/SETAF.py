@@ -8,8 +8,8 @@ class SETAF:
 
     @property
     def arguments(self):
-        return frozenset(
-            a.arguments for a in self._attacks
+        return frozenset.union(
+            *(a.arguments for a in self._attacks)
         )
 
     def __eq__(self, other):
