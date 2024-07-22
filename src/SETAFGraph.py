@@ -9,22 +9,18 @@ class SETAFGraph(networkx.DiGraph):
         super().__init__()
         self._setaf = setaf
         self._node_labels = dict()
-        self._edge_labels = dict()
 
         for a in setaf.arguments:
             self.add_node(a)
             self._node_labels[a] = str(a)
 
         for a in setaf.attacks:
-            # Add an explicit node for an attack only if this attack
+            # Add an explicit vertex for an attack only if this attack
             # contains more than one attacker.
             if len(a.attackers) > 1:
                 self.add_node(a)
                 self._node_labels[a] = ""
                 self.add_edge(a, a.attacked)
-                self._edge_labels[(a, a.attacked)] = ", ".join(
-                    map(str, a.attackers)
-                )
             # Otherwise, just add a vertex from the already existing
             # attacker to the already existing attacked argument.
             elif len(a.attackers) == 1:
@@ -33,6 +29,30 @@ class SETAFGraph(networkx.DiGraph):
                 )
             else:
                 raise Exception("Invalid number of arguments")
+
+    @staticmethod
+    def _edge_label(edge, labeling):
+        attack, attacked = edge
+
+        if type(attack) is Attack:
+            sign = {
+                Label.IN: "+",
+                Label.OUT: "-",
+                Label.UNDEC: ""
+            }
+
+            return ", ".join(
+                map(
+                    lambda x: "%s%s" % (sign[labeling[x]], x),
+                    attack.attackers
+                )
+            )
+        elif type(attack) is int:
+            return ""
+        else:
+            raise ValueError(
+                "%s is an unrecognized vertex type" % type(attack)
+            )
 
     @property
     def setaf(self):
@@ -74,8 +94,10 @@ class SETAFGraph(networkx.DiGraph):
     def node_labels(self):
         return self._node_labels
 
-    def edge_labels(self):
-        return self._edge_labels
+    def edge_labels(self, labeling):
+        return {
+            edge: self._edge_label(edge, labeling) for edge in self.edges
+        }
 
     def edge_colors(self, labeling):
         colors = {

@@ -38,33 +38,45 @@ class BaseDisplayGraphCommand(Command):
 
         return parser
 
-    def _draw_graph(self, graph, **options):
-        layout = self.LAYOUTS[
-            self._args.layout
-        ]
+    def _draw_nodes(self, graph, **options):
+        layout = self.LAYOUTS[self._args.layout]
 
-        networkx.draw_networkx(
+        networkx.draw_networkx_nodes(
             graph,
             pos=layout(graph),
+            node_size=graph.node_sizes(),
             node_shape="o",
-            labels=graph.node_labels(),
-            with_labels=True,
             **options
         )
-        networkx.draw_networkx_edge_labels(
+
+    def _draw_node_labels(self, graph, **options):
+        layout = self.LAYOUTS[self._args.layout]
+
+        networkx.draw_networkx_labels(
             graph,
             pos=layout(graph),
-            edge_labels=graph.edge_labels(),
-            font_size=12,
+            labels=graph.node_labels(),
+            **options
         )
 
-    def _draw_graph_edges(self, graph, **options):
-        layout = self.LAYOUTS[
-            self._args.layout
-        ]
+    def _draw_edges(self, graph, **options):
+        layout = self.LAYOUTS[self._args.layout]
+
         networkx.draw_networkx_edges(
             graph,
             pos=layout(graph),
+            arrows=True,
+            node_size=graph.node_sizes(),
+            **options
+        )
+
+    def _draw_edge_labels(self, graph, **options):
+        layout = self.LAYOUTS[self._args.layout]
+
+        networkx.draw_networkx_edge_labels(
+            graph,
+            pos=layout(graph),
+            font_size=12,
             **options
         )
 

@@ -36,20 +36,26 @@ class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
             if self._args.verbose:
                 print(labeling)
 
-            self._draw_graph(
+            self._draw_nodes(
                 graph,
-                font_color="#FFFFFF",
                 node_color=graph.node_colors(labeling),
                 # This refers to the color of the border of nodes, not to edges!
                 edgecolors=graph.node_edge_colors(labeling),
                 linewidths=2,
-                node_size=graph.node_sizes(),
+            )
+            self._draw_node_labels(
+                graph,
+                font_color="#FFFFFF",
+            )
+            self._draw_edges(
+                graph,
                 edge_color=graph.edge_colors(labeling),
                 width=2,
             )
-            # self._draw_graph_edges(
-            #     graph,
-            # )
+            self._draw_edge_labels(
+                graph,
+                edge_labels=graph.edge_labels(labeling)
+            )
             self._show_graph()
         else:
             print(

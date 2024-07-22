@@ -23,7 +23,7 @@ class DisplayGraphCommand(BaseDisplayGraphCommand):
             SETAFReader(self._args.input_file)()
         )
 
-        self._draw_graph(
+        self._draw_nodes(
             graph,
             node_size=graph.node_sizes(),
             font_color="#EEEEEE"
