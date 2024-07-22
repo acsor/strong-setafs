@@ -31,7 +31,22 @@ class SETAFGraph(networkx.DiGraph):
                 raise Exception("Invalid number of arguments")
 
     @staticmethod
-    def _edge_label(edge, labeling):
+    def _simple_edge_label(edge):
+        attack, attacked = edge
+
+        if type(attack) is Attack:
+            return ", ".join(
+                map(lambda x: "%s" % x, attack.attackers)
+            )
+        elif type(attack) is int:
+            return ""
+        else:
+            raise ValueError(
+                "%s is an unrecognized vertex type" % type(attack)
+            )
+
+    @staticmethod
+    def _enhanced_edge_label(edge, labeling):
         attack, attacked = edge
 
         if type(attack) is Attack:
@@ -94,10 +109,21 @@ class SETAFGraph(networkx.DiGraph):
     def node_labels(self):
         return self._node_labels
 
-    def edge_labels(self, labeling):
-        return {
-            edge: self._edge_label(edge, labeling) for edge in self.edges
-        }
+    def edge_labels(self, labeling=None):
+        """
+        :return: A dictionary having edges as keys and a string representing
+        the edge label as value. If `labeling` is specified, additional
+        information specified by `labeling` will be displayed on the edge label.
+        """
+        if labeling:
+            return {
+                edge: self._enhanced_edge_label(edge, labeling) for edge in
+                self.edges
+            }
+        else:
+            return {
+                edge: self._simple_edge_label(edge) for edge in self.edges
+            }
 
     def edge_colors(self, labeling):
         colors = {

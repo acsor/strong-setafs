@@ -23,9 +23,14 @@ class DisplayGraphCommand(BaseDisplayGraphCommand):
             SETAFReader(self._args.input_file)()
         )
 
-        self._draw_nodes(
+        self._draw_nodes(graph)
+        self._draw_node_labels(
             graph,
-            node_size=graph.node_sizes(),
-            font_color="#EEEEEE"
+            font_color="#FFFFFF",
+        )
+        self._draw_edges(graph)
+        self._draw_edge_labels(
+            graph,
+            edge_labels=graph.edge_labels()
         )
         self._show_graph()
