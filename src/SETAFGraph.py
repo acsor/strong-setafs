@@ -53,7 +53,7 @@ class SETAFGraph(networkx.DiGraph):
             sign = {
                 Label.IN: "+",
                 Label.OUT: "-",
-                Label.UNDEC: ""
+                Label.UNDEC: "?"
             }
 
             return ", ".join(
