@@ -132,11 +132,9 @@ class SETAFGraph(networkx.DiGraph):
             Label.UNDEC: '#C3C3C3'
         }
 
-        return tuple(
-            map(
-                lambda e: colors[labeling[e[0]]], self.edges
-            )
-        )
+        return {
+            e: colors[labeling[e[0]]] for e in self.edges
+        }
 
     def node_sizes(self):
         return tuple(
