@@ -45,7 +45,7 @@ class SETAF:
         for attack in self.attacks:
             labeling[attack] = Label.UNDEC
 
-            if labeling[*attack.attackers] == Label.IN:
+            if labeling[attack.attackers] == Label.IN:
                 labeling[attack] = Label.IN
                 mm_labeling[attack] = 1
                 attacks.append(attack)
@@ -86,7 +86,7 @@ class SETAF:
                 lambda x: labeling[x] == Label.UNDEC,
                 self.attacks
             ):
-                if labeling[*undec_attack.attackers] == Label.IN:
+                if labeling[undec_attack.attackers] == Label.IN:
                     labeling[undec_attack] = Label.IN
                     mm_labeling[undec_attack] = max(
                         mm_labeling[x] for x in undec_attack.attackers
