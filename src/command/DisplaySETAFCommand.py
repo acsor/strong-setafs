@@ -4,7 +4,7 @@ from src.command.BaseDisplayGraphCommand import BaseDisplayGraphCommand
 
 
 class DisplayGraphCommand(BaseDisplayGraphCommand):
-    NAME = "display-graph"
+    NAME = "display-setaf"
     DESCRIPTION = """
     Reads a SETAF from a CCL file and displays it on a window.
     """

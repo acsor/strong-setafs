@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-from src.command.DisplayGraphCommand import DisplayGraphCommand
+from src.command.DisplaySETAFCommand import DisplayGraphCommand
 from src.command.DisplayStrongLabelingCommand import \
     DisplayStrongLabelingCommand
 from src.command.utils import wrap_command
