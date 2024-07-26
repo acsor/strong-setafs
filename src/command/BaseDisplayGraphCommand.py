@@ -28,7 +28,7 @@ class BaseDisplayGraphCommand(Command):
             "--layout",
             choices=tuple(cls.LAYOUTS.keys()),
             default="circular",
-            help="Layout to display the graph vertices with"
+            help="Layout with which to display the graph"
         )
         parser.add_argument(
             "input_file",

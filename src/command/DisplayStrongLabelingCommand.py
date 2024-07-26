@@ -6,7 +6,7 @@ from src.command.BaseDisplayGraphCommand import BaseDisplayGraphCommand
 class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
     NAME = "display-sl"
     DESCRIPTION = """
-    Displays the strongly admissible labeling of the input graph.
+    Displays the strongly admissible labeling of the input graph
     """
 
     def __init__(self, args):
@@ -18,7 +18,11 @@ class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
 
         parser.add_argument(
             "--target", type=int, default=None,
-            help="Argument that is supposed to be in the grounded extension"
+            help="""
+            An argument which is supposed to be in the grounded extension.
+            Once this argument is labeled positively (in) the labeling
+            process stops and a partial labeling is shown
+            """
         )
 
         return parser
