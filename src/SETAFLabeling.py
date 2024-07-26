@@ -1,5 +1,4 @@
 import enum
-import random
 from collections.abc import Iterable
 
 
@@ -40,22 +39,3 @@ class SETAFLabeling:
 
     def keys(self):
         return self._labels.keys()
-
-    @staticmethod
-    def random_labeling(setaf):
-        """
-        :param setaf: A SETAF.
-        :return: A SETAFLabeling instance mapping arguments and argument-attacks
-        uniformly randomly to labels.
-        """
-        labels = SETAFLabeling(setaf)
-
-        for a in setaf.attacks:
-            labels[a.attacked] = random.choice(
-                (Label.OUT, Label.IN, Label.UNDEC)
-            )
-            labels[a] = random.choice(
-                (Label.OUT, Label.IN, Label.UNDEC)
-            )
-
-        return labels
