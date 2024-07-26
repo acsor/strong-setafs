@@ -1,10 +1,27 @@
 import networkx
+from colour import Color
 
 from src.Attack import Attack
 from src.SETAFLabeling import Label
 
 
 class SETAFGraph(networkx.DiGraph):
+    NODE_COLORS = {
+        Label.IN: Color("green", luminance=0.3).hex,
+        Label.OUT: Color("red", luminance=0.45).hex,
+        Label.UNDEC: Color("gray", luminance=0.6).hex
+    }
+    NODE_EDGE_COLORS = {
+        Label.IN: NODE_COLORS[Label.IN],
+        Label.OUT: NODE_COLORS[Label.OUT],
+        Label.UNDEC: NODE_COLORS[Label.UNDEC],
+    }
+    EDGE_COLORS = {
+        Label.IN: Color("red", luminance=0.45).hex,
+        Label.OUT: Color("gray", luminance=0.6).hex,
+        Label.UNDEC: Color("gray", luminance=0.6).hex
+    }
+
     def __init__(self, setaf):
         super().__init__()
         self._setaf = setaf
@@ -78,15 +95,9 @@ class SETAFGraph(networkx.DiGraph):
         :param labeling: An instance of SETAFLabeling.
         """
         # TODO Rename method.
-        colors = {
-            Label.IN: '#38CF4A',
-            Label.OUT: '#FF7A72',
-            Label.UNDEC: '#C3C3C3'
-        }
-
         return tuple(
             map(
-                lambda n: colors[labeling[n]], self.nodes
+                lambda n: self.NODE_COLORS[labeling[n]], self.nodes
             )
         )
 
@@ -94,15 +105,9 @@ class SETAFGraph(networkx.DiGraph):
         """
         :param labeling: An instance of SETAFLabeling.
         """
-        colors = {
-            Label.IN: '#239930',
-            Label.OUT: '#E63B31',
-            Label.UNDEC: '#999999'
-        }
-
         return tuple(
             map(
-                lambda n: colors[labeling[n]], self.nodes
+                lambda n: self.NODE_EDGE_COLORS[labeling[n]], self.nodes
             )
         )
 
@@ -126,14 +131,8 @@ class SETAFGraph(networkx.DiGraph):
             }
 
     def edge_colors(self, labeling):
-        colors = {
-            Label.IN: '#FF7A72',
-            Label.OUT: '#C3C3C3',
-            Label.UNDEC: '#C3C3C3'
-        }
-
         return {
-            e: colors[labeling[e[0]]] for e in self.edges
+            e: self.EDGE_COLORS[labeling[e[0]]] for e in self.edges
         }
 
     def node_sizes(self):

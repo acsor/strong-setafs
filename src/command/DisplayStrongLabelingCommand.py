@@ -50,7 +50,7 @@ class DisplayStrongLabelingCommand(BaseDisplayGraphCommand):
             self._draw_edges(
                 graph,
                 edge_color=graph.edge_colors(labeling),
-                width=2,
+                width=1,
             )
             self._draw_edge_labels(
                 graph,
